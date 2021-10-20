@@ -1,42 +1,55 @@
 #include <iostream>
 #include <cmath>
-
 using namespace std;
-double p(const double x);
+
+double g(const double x);
+
 int main()
 {
-	double gp, gk, z;
+	double zp, zk, f;
 	int n;
-	cout << "gp = "; cin >> gp;
-	cout << "gk = "; cin >> gk;
+	cout << "gp = "; cin >> zp;
+	cout << "gk = "; cin >> zk;
 	cout << "n = "; cin >> n;
-	double dg = (gk - gp) / n;
-	double g = gp;
-	while (g <= gk)
+	double zg = (zk - zp) / n;
+	cout << zg << endl;
+	double z = zp;
+	while (z <= zk)
 	{
-		z = p(1 - g * g) + pow(p(1 + g - sqrt(p(g))), 2);
-		cout << g << " " << z << endl;
-		g += dg;
+		//f = g(2*z)+ pow(g(2*z+z*z), 2) + g(1.5);
+		f = g(z);
+		cout << z << " " << f << endl;
+		z += zg;
 	}
 	return 0;
 }
-double p(const double x)
+
+int factorial(int n)
+{
+	if (n > 1)
+		return n * factorial(n - 1);
+	else
+		return 1;
+}
+
+double g(const double x)
 {
 	if (abs(x) >= 1)
-		return (cos(sin(x)) + 1) / (exp(-x) + 1);
+	{
+		return sin(x) / (cos(x) + 2);
+	}
 	else
 	{
-		double S = 0;
-		int j = 0;
-		double a = 1;
+		double S = 0, a = 1;
+		int n = 0;
 		S = a;
 		do
 		{
-			j++;
-			double R = -x * x / ((3 * j - 2) * (3 * j - 1) * 3 * j);
+			n++;
+			double R = (pow(x, 2. * n) / factorial(n)) / (pow(x, 2. * (1.*n - 1)) / factorial(n - 1));
 			a *= R;
 			S += a;
-		} while (j < 4);
+		} while (n < 6);
 		return S;
 	}
-}
+}
